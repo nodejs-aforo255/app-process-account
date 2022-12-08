@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment-process-account
+  labels:
+    app: service-process-account
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-process-account
+  template:
+    metadata:
+      labels:
+        app: service-process-account
+    spec:
+      containers:
+      - name: app-process-account
+        image: valentinareinoso/aforo255-nodejs-process-account-vrr:latest
+        ports:
+        - containerPort: 5002
+        env:
+        - name: NACOS_SERVERADDR
+          value: "165.227.250.67:8848"
+        - name: NACOS_NAMESPACE
+          value: "aforo255"
+        - name: NACOS_IDENTITYKEY
+          value: "nacos"
+        - name: NACOS_IDENTITYVALUE
+          value: "nacos"
+        - name: NACOS_ENV
+          value: "PROD"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: app-service-process-account
+spec:
+  type: LoadBalancer
+  selector:
+    app: service-process-account
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 5002
+    name: http
+ 

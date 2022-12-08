@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: app-service-process-account
+spec:
+  type: LoadBalancer
+  selector:
+    app: service-process-account
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 5002
+    name: http
+ 
