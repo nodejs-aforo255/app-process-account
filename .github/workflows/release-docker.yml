@@ -23,7 +23,7 @@ jobs:
       run: docker login --username ${{ secrets.DOCKER_HUB_USER }} --password ${{ secrets.DOCKER_HUB_PASSWORD }}
     - name: Push the docker image
       run: docker push $DOCKER_HUB_USER/$DOCKER_IMAGE_NAME:v-$GITHUB_RUN_NUMBER
-	
+
    merge-branch:
     name: Merge to main
     needs: docker 
